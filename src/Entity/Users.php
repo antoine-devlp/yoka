@@ -3,11 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UsersRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Mime\Message;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
+#[UniqueEntity(
+    fields: "pseudo",
+    message: "Le pseudo est déjà pris"
+)]
 class Users
 {
     #[ORM\Id]
@@ -16,8 +23,18 @@ class Users
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage: "Le pseudo doit au moins faire 5 caractères.",
+        maxMessage: "Le pseudo ne peut pas dépasser 10 caractères.")]
     private $pseudo;
 
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage: "Le pseudo doit au moins faire 5 caractères.",
+        maxMessage: "Le pseudo ne peut pas dépasser 10 caractères.")]
     #[ORM\Column(type: 'string', length: 255)]
     private $password;
 
@@ -27,6 +44,12 @@ class Users
     #[ORM\ManyToMany(targetEntity: Films::class, mappedBy: 'id_users')]
     private $id_films;
 
+    #[Assert\Length(
+        min: 5,
+        max: 10,
+        minMessage: "Le pseudo doit au moins faire 5 caractères.",
+        maxMessage: "Le pseudo ne peut pas dépasser 10 caractères.")]
+    #[Assert\EqualTo(propertyPath: "password", message: "Les mots de passes de sont pas identiques.")]
     private $passwordVerif;
 
     public function __construct()
