@@ -27,6 +27,8 @@ class Users
     #[ORM\ManyToMany(targetEntity: Films::class, mappedBy: 'id_users')]
     private $id_films;
 
+    private $passwordVerif;
+
     public function __construct()
     {
         $this->id_series = new ArrayCollection();
@@ -58,6 +60,18 @@ class Users
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPasswordVerif(): ?string
+    {
+        return $this->passwordVerif;
+    }
+
+    public function setPasswordVerif(string $passwordVerif): self
+    {
+        $this->passwordVerif = $passwordVerif;
 
         return $this;
     }
