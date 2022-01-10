@@ -9,26 +9,27 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Mime\Message;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(
-    fields: "pseudo",
+    fields: "username",
     message: "Le pseudo est déjà pris"
 )]
-class Users
+class Users implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(name: 'username', type: 'string', length: 255)]
     #[Assert\Length(
         min: 5,
         max: 10,
         minMessage: "Le pseudo doit au moins faire 5 caractères.",
         maxMessage: "Le pseudo ne peut pas dépasser 10 caractères.")]
-    private $pseudo;
+    private $username;
 
     #[Assert\Length(
         min: 5,
@@ -63,14 +64,14 @@ class Users
         return $this->id;
     }
 
-    public function getPseudo(): ?string
+    public function getUsername(): ?string
     {
-        return $this->pseudo;
+        return $this->username;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setUsername(string $username): self
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
@@ -151,5 +152,20 @@ class Users
         }
 
         return $this;
+    }
+
+    public function eraseCredentials()
+    {
+        
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        
     }
 }
