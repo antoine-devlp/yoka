@@ -55,14 +55,14 @@
 							<div class="card-header">{{app.user.username}}</div>
 							<div class="card-body">
                                 <div class="d-flex flex-row justify-content-center m-4">
-                                    <a href="" class="text-center m-2"><button class="btn btn-lg btn-secondary" type="button">Modifier mon identifiant</button></a>
-                                    <a href="" class="text-center m-2"><button class="btn btn-lg btn-secondary" type="button">Modifier mon mot de passe</button></a>
+                                    <a href="{{path("user_update",{'id' : app.user.id})}}" class="text-center m-2"><button class="btn btn-lg btn-secondary" type="button">Modifier mon identifiant</button></a>
+                                    <a href="{{path("psw_update",{'id' : app.user.id})}}" class="text-center m-2"><button class="btn btn-lg btn-secondary" type="button">Modifier mon mot de passe</button></a>
                                 </div>
                                 <a href="{{path('users_logout')}}" class="text-center"><button class="btn btn-lg btn-danger mb-5" type="button">Deconnexion</button></a>
                             </div>
 						</div>
 
-                        <a href="" class="text-center"><button class="btn btn-lg btn-danger w-100" type="button">Supprimer mon compte</button></a>
+                        <a href="{{path("user_delete",{'id' : app.user.id}) }}" class="text-center"><button onclick="javascript:return confirm('Etes vous sur de vouloir supprimer votre compte ?');" class="btn btn-lg btn-danger w-100" type="button">Supprimer mon compte</button></a>
 
                     </article>
 					

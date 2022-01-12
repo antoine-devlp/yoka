@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
+                <th>Titre</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,8 +19,8 @@
                 <td>{{ film.id }}</td>
                 <td>{{ film.title }}</td>
                 <td>
-                    <a href="{{ path('film_controller_class_show', {'id': film.id}) }}">show</a>
-                    <a href="{{ path('film_controller_class_edit', {'id': film.id}) }}">edit</a>
+                    <a href="{{ path('film_controller_class_show', {'id': film.id}) }}">Montrer</a>
+                    <a href="{{ path('film_controller_class_edit', {'id': film.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('film_controller_class_new') }}">Create new</a>
+    <a href="{{ path('film_controller_class_new') }}">Ajouter</a>
 {% endblock %}

@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Users;
+use App\Repository\UsersRepository;
+use App\Form\UpdateUsernameType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\User;
+
+class UserUpdateController extends AbstractController
+{
+    #[Route('/update/{id}', name: 'user_update')]
+    public function userUpdate(Users $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
+    {
+
+        // $utilisateur = new Users();
+        // echo $user;
+        $form = $this->createForm(UpdateUsernameType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $passwordCrypte = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($passwordCrypte);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Edition Utilisateur avec succés');
+            return $this->redirectToRoute("users_access");
+        };
+
+        return $this->render('user_update/username_update.html.twig',["form" => $form->createView()]);
+    }
+
+
+
+    #[Route('/psw/update/{id}', name: 'psw_update')]
+    public function pswUpdate(Users $user, Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
+    {
+        $form = $this->createForm(UpdateUsernameType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $passwordCrypte = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($passwordCrypte);
+            $em->persist($user);
+            $em->flush();
+            $this->addFlash('success', 'Edition Utilisateur avec succés');
+            return $this->redirectToRoute("users_access");
+        };
+
+        return $this->render('user_update/psw_update.html.twig',["form" => $form->createView()]);
+    }
+
+    #[Route('delete/{id}', name: 'user_delete')]
+    public function deleteUser($id , UsersRepository $repository , EntityManagerInterface $em): Response
+    {
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $repository->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('users_access');
+
+    }
+}

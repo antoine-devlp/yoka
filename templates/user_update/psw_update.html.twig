@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page Update Password
+{% endblock %}
+
+{% block body %}
+	<h1>Page de modification password</h1>
+
+	{{ form_start(form)}}
+	{{form_row(form.username, {
+                "attr" : {"placeholder":"Votre pseudo",
+                          "class" : "mb-3",
+                          "hidden":"",
+                },
+                "label": " "
+            })}}
+	{{form_row(form.password, {
+                "attr" : {"placeholder":"Nouveau mdp",
+                          "value":"",
+                          "class" : "mb-3"
+                },
+                "label": "nouveau mot de pass "
+            })}}
+	<input type="submit" class="btn btn-primary" value="Modifier">
+	{{ form_end(form)}}
+{% endblock %}

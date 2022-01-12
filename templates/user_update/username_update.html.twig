@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page de modification Username{% endblock %}
+
+{% block body %}
+<h1>Page modif username</h1>
+{{app.user.password}}
+{{ form_start(form)}}
+            {{form_row(form.username, {
+                "attr" : {"placeholder":"Votre nouveau pseudo",
+                          "class" : "mb-3"
+                },
+                "label": "Votre nouveau pseudo : "
+            })}}
+            {{form_row(form.password, {
+                "attr" : {"placeholder":"votre mdp",
+                          "class" : "mb-3",
+                          "value" : ""
+                },
+                "label": "confirmer votre mdp : "
+            })}}
+            {# {{form_row(form.passwordVerif, {
+                "attr" : {"placeholder":"Re-saisir le mot de passe",
+                "class": "mb-3"
+                },
+                "label": " "
+            })}} #}
+            <input type="submit" class="btn btn-primary" value="Modifier">
+        {{ form_end(form)}}
+{% endblock %}
