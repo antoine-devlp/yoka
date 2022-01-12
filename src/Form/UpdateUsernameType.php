@@ -14,8 +14,8 @@ class UpdateUsernameType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password', PasswordType::class)
-            // ->add('passwordVerif', PasswordType::class)
+            // ->add('Password', PasswordType::class)
+            //->add('passwordVerif', PasswordType::class)
         ;
     }
 
@@ -26,3 +26,5 @@ class UpdateUsernameType extends AbstractType
         ]);
     }
 }
+
+
