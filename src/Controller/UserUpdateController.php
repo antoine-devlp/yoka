@@ -25,7 +25,6 @@ class UserUpdateController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted()) {
             $username = $form['username']->getData();
-            if($username)
             $user->setUsername($username);
             $em->persist($user);
             $em->flush();

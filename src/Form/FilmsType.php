@@ -13,7 +13,6 @@ class FilmsType extends AbstractType
     {
         $builder
             ->add('title')
-            // ->add('id_users')
         ;
     }
 
